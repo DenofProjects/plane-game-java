@@ -4,10 +4,18 @@ import com.pd.controllers.KeyBoardEvents;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.ListIterator;
 
 import static com.pd.constants.Constants.*;
 
 public class GamePanel extends JPanel {
+
+    private final java.util.List<Bullet> bulletList = new ArrayList<>();
+
+    public GamePanel() {
+        addKeyListener(new KeyBoardEvents(this));
+    }
 
     private GamePanelActions gamePanelActions = new GamePanelActions();
 
@@ -15,22 +23,30 @@ public class GamePanel extends JPanel {
         return gamePanelActions;
     }
 
-    public GamePanel() {
-        addKeyListener(new KeyBoardEvents(this));
+    public void createBullet() {
+        bulletList.add(new Bullet());
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.getPlane(g);
-        repaint();
+        this.processBullet(g);
     }
 
-    private void getPlane(Graphics graphics){
-        graphics.drawRect(gamePanelActions.getxDirPlane(), gamePanelActions.getyDirPlane(), RECT_WIDTH, RECT_HEIGHT);
+    private void getPlane(Graphics graphics) {
+        graphics.fillRect(gamePanelActions.getxDirPlane(), gamePanelActions.getyDirPlane(), RECT_WIDTH, RECT_HEIGHT);
     }
 
-    public void getBullet(Graphics graphics){
-        graphics.drawRect(gamePanelActions.getxDirBullet(), gamePanelActions.getyDirBullet(), BULLET_RECT_WIDTH, BULLET_RECT_HEIGHT);
+    private void processBullet(Graphics g) {
+        ListIterator<Bullet> ltr = bulletList.listIterator();
+        while (ltr.hasNext()) {
+            Bullet bullet = ltr.next();
+            bullet.draw(g);
+            bullet.updateBullet();
+            if (bullet.getyDirBullet() < 10) {
+                ltr.remove();
+            }
+        }
     }
 
 }

@@ -40,7 +40,7 @@ public class KeyBoardEvents implements KeyListener {
                 System.out.println("right Key pressed");
                 break;
             case KeyEvent.VK_SPACE:
-                gamePanel.getBullet(graphics);
+                gamePanel.createBullet();
                 System.out.println("space Key pressed");
                 break;
         }

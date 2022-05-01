@@ -37,7 +37,4 @@ public class GamePanelActions {
         System.out.println("x dir is : " + xDirPlane);
     }
 
-    public void moveBullet(int x){
-
-    }
 }
