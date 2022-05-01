@@ -17,26 +17,47 @@ public class KeyBoardEvents implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_A:
+                gamePanel.getGamePanelActions().changeDirX(-5);
+                System.out.println("A pressed");
+                break;
+            case KeyEvent.VK_D:
+                gamePanel.getGamePanelActions().changeDirX(5);
+                System.out.println("D pressed");
+                break;
+            case KeyEvent.VK_LEFT:
+                gamePanel.getGamePanelActions().changeDirX(-5);
+                System.out.println("left Key pressed");
+                break;
+            case KeyEvent.VK_RIGHT:
+                gamePanel.getGamePanelActions().changeDirX(5);
+                System.out.println("right Key pressed");
+                break;
+            case KeyEvent.VK_SPACE:
+                gamePanel.createBullet();
+                System.out.println("space Key pressed");
+                break;
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_A:
-                gamePanel.getGamePanelActions().changeDirX(-1);
+                gamePanel.getGamePanelActions().changeDirX(-5);
                 System.out.println("A pressed");
                 break;
             case KeyEvent.VK_D:
-                gamePanel.getGamePanelActions().changeDirX(1);
+                gamePanel.getGamePanelActions().changeDirX(5);
                 System.out.println("D pressed");
                 break;
             case KeyEvent.VK_LEFT:
-                gamePanel.getGamePanelActions().changeDirX(-1);
+                gamePanel.getGamePanelActions().changeDirX(-5);
                 System.out.println("left Key pressed");
                 break;
             case KeyEvent.VK_RIGHT:
-                gamePanel.getGamePanelActions().changeDirX(1);
+                gamePanel.getGamePanelActions().changeDirX(5);
                 System.out.println("right Key pressed");
                 break;
             case KeyEvent.VK_SPACE:

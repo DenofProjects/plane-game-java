@@ -5,19 +5,6 @@ import static com.pd.constants.Constants.*;
 public class GamePanelActions {
     private int xDirPlane = 0;
     private final int yDirPlane = GAME_WINDOW_HEIGHT - 2 * RECT_HEIGHT;
-
-    private int xDirBullet = RECT_HEIGHT;
-
-    private int yDirBullet = RECT_WIDTH/2;
-
-    public int getxDirBullet() {
-        return xDirBullet;
-    }
-
-    public int getyDirBullet() {
-        return yDirBullet;
-    }
-
     public int getxDirPlane() {
         return xDirPlane;
     }

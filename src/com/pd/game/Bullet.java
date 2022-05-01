@@ -5,15 +5,17 @@ import java.awt.*;
 import static com.pd.constants.Constants.*;
 
 public class Bullet {
-    private int xDirBullet = RECT_WIDTH / 2;
 
-    private int yDirBullet = GAME_WINDOW_HEIGHT - 3 * RECT_HEIGHT;
+    private int xDirBullet;
 
-    public Bullet() {
+    private int yDirBullet = GAME_WINDOW_HEIGHT - 2 * RECT_HEIGHT;
 
+    public Bullet(int xDirPlane) {
+        this.xDirBullet = (2 * xDirPlane + RECT_WIDTH - BULLET_RECT_WIDTH) / 2;
     }
 
-    public int getyDirBullet(){
+
+    public int getyDirBullet() {
         return this.yDirBullet;
     }
 
@@ -22,6 +24,7 @@ public class Bullet {
     }
 
     public void draw(Graphics graphics) {
+//        System.out.println("x dir bullet : " + xDirBullet);
         graphics.fillRect(xDirBullet, yDirBullet, BULLET_RECT_WIDTH, BULLET_RECT_HEIGHT);
     }
 }
