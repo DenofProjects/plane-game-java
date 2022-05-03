@@ -6,19 +6,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static com.pd.constants.Constants.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    private final java.util.List<Bullet> bulletList = new ArrayList<>();
+    private java.util.List<Bullet> bulletList = new ArrayList<>();
 
     private final java.util.List<EnemyPlane> enemyPlanes = new ArrayList<>();
     Thread enemyPlaneThread;
-
-    private boolean collided = false;
-
-    int yBullet, yEnemy;
 
     public GamePanel() {
         addKeyListener(new KeyBoardEvents(this));
@@ -39,9 +37,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         enemyPlaneThread.stop();
         super.paintComponent(g);
-        if (yEnemy == yBullet) {
-            collided = true;
-        }
         this.getPlane(g);
         this.processBullet(g);
         this.processEnemyPlane(g);
@@ -57,10 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
             Bullet bullet = ltr.next();
             bullet.draw(g);
             bullet.updateBullet();
-            yBullet = bullet.getyDirBullet();
             if (bullet.getyDirBullet() < 10) {
-                ltr.remove();
-            } else if (collided) {
                 ltr.remove();
             }
         }
@@ -71,15 +63,24 @@ public class GamePanel extends JPanel implements Runnable {
         while (ltr.hasNext()) {
             EnemyPlane enemyPlane = ltr.next();
             enemyPlane.draw(g);
+            ListIterator<Bullet> bulletListIterator = bulletList.listIterator();
+            while (bulletListIterator.hasNext()) {
+                Bullet bullet = bulletListIterator.next();
+                if (this.bulletCollision(bullet, enemyPlane) && (enemyPlane.getxDirEnemyPlane() <= bullet.getxDirBullet() && (enemyPlane.getxDirEnemyPlane() + RECT_WIDTH) >= bullet.getxDirBullet())) {
+                    ltr.remove();
+                    bulletListIterator.remove();
+                }
+            }
             enemyPlane.udpate();
-            yEnemy = enemyPlane.getYDirEnemyPlane();
+
             if (enemyPlane.getYDirEnemyPlane() >= 435) {
                 ltr.remove();
-            } else if (collided) {
-                ltr.remove();
-                collided = false;
             }
         }
+    }
+
+    private boolean bulletCollision(Bullet bullet, EnemyPlane enemyPlane) {
+        return (bullet.getyDirBullet() > enemyPlane.getYDirEnemyPlane() + BULLET_COLLISION_BUFFER) && (bullet.getyDirBullet() <= enemyPlane.getYDirEnemyPlane() + RECT_HEIGHT);
     }
 
     @Override

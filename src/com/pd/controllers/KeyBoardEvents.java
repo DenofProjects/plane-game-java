@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 public class KeyBoardEvents implements KeyListener {
 
     GamePanel gamePanel;
-    Graphics graphics;
 
     public KeyBoardEvents(GamePanel gamePanel) {
         this.gamePanel = gamePanel;

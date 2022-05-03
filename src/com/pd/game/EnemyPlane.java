@@ -8,18 +8,23 @@ public class EnemyPlane {
     private final int MAX = 435;
     private final int MIN = 1;
 
-    private final double xDirEnemyPlane = Math.random() * (MAX - MIN) + MIN;
-    private double yDirEnemyPlane = Math.random() * (-10000);
+    private final int xDirEnemyPlane = (int)(Math.random() * (MAX - MIN) + MIN);
+    private int yDirEnemyPlane = (int)(Math.random() * (-50000));
 
     public int getYDirEnemyPlane() {
-        return (int) yDirEnemyPlane;
+        return  yDirEnemyPlane;
+    }
+
+    public int getxDirEnemyPlane() {
+        return  xDirEnemyPlane;
     }
 
     public void draw(Graphics graphics) {
-        graphics.fillRect((int) xDirEnemyPlane, (int) yDirEnemyPlane, RECT_WIDTH, RECT_HEIGHT);
+        graphics.fillRect(xDirEnemyPlane,  yDirEnemyPlane, RECT_WIDTH, RECT_HEIGHT);
     }
 
     public void udpate() {
+        System.out.println("y enemy : " + yDirEnemyPlane);
         yDirEnemyPlane += 1;
     }
 }
